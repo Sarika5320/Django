@@ -1,0 +1,72 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    
+    
+
+    <div id="carouselExampleIndicators" class="carousel slide">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="https://cdn.pixabay.com/photo/2018/07/14/11/33/earth-3537401_1280.jpg" height="650px" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="https://cdn.pixabay.com/photo/2024/01/25/03/16/capuchin-monkey-8530884_1280.jpg" height="650px" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="https://cdn.pixabay.com/photo/2024/06/14/11/47/dna-8829661_1280.jpg" height="650px" class="d-block w-100" alt="...">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <div class="container">
+      <h1 class="text-center py-5">About</h1>
+      <p class="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum hic sit amet numquam maiores, 
+        perferendis blanditiis voluptates unde distinctio odit ipsam animi minus incidunt temporibus facilis? Praesentium 
+        molestiae inventore quam blanditiis illo, non in enim, nobis similique quidem itaque quis esse tenetur unde quibusdam! 
+        Laudantium reprehenderit dolorum eaque eligendi veritatis, pariatur vel a eius. Molestias deserunt aliquam numquam id? 
+        Sint laudantium, quaerat fugiat quae dicta cum, blanditiis id nemo tempora, repellendus quas? At rem ducimus voluptatum 
+        excepturi a atque natus, quo tenetur odit doloribus expedita aperiam debitis suscipit esse perferendis, amet perspiciatis 
+        molestias asperiores, exercitationem sit nostrum repellendus molestiae facere.</p>
+    </div>
+    <div class="blogs">
+      <div class="container">
+        <h1 class="text-center py-5">Blogs</h1>
+        <div class="row mb-2">
+          {% for i in blog %}
+            <div class="col-md-6">
+              <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                  <strong class="d-inline-block mb-2 text-primary-emphasis">World</strong>
+                  <h3 class="mb-0">{{i.title}}</h3>
+                  <div class="mb-1 text-body-secondary">{{i.created_at}}</div>
+                  <p class="card-text mb-auto">{{i.short_des}}</p>
+                  <a href="{% url 'content' i.id %}" class="icon-link gap-1 icon-link-hover stretched-link">
+                    Continue reading
+                    <svg class="bi"><use xlink:href="#chevron-right"/></svg> 
+                  </a>
+                </div>
+                <div class="col-auto d-none d-lg-block">
+                  <img class="bd-placeholder-img" width="200" height="250" src="media/{{i.thumbnail}}" alt="">
+                </div>
+
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+      </div>
+    </div>
+{% endblock  %}

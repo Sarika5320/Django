@@ -1,0 +1,17 @@
+
+  {
+    "emmet.includeLanguages": {
+      "django-html": "html",
+      "jinja-html": "html"
+    },
+    "files.associations": {
+      "*.html": "django-html"
+    },
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": true
+    },
+    "editor.suggestOnTriggerCharacters": true
+  }
+  
