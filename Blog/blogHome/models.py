@@ -27,7 +27,7 @@ class Comment(models.Model):
     def __str__(self) -> str:
         return self.name
 
- 
+  
 
 class Replay(models.Model):
    name = models.CharField(max_length=100,default="")

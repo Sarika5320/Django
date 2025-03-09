@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect,HttpResponse
-from .models import Blog
+from .models import Blog,Comment,Replay
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,logout,login
 from django.contrib import messages
+from django.urls import reverse
 
 
 # Create your views here.
@@ -25,9 +26,13 @@ def contact(request):
 
 
 def content(request,id):
+  comment = Comment.objects.all().order_by('-id')
   blog = Blog.objects.get(id=id)
+  replay = Replay.objects.all()
   context = {
-    "blog": blog
+    "blog": blog,
+    "comment":comment,
+    "replay":replay
   }
   return render(request,"blogcontent.html",context)
 
@@ -59,3 +64,34 @@ def Login(request):
 def Logout(request):
   logout(request)
   return redirect("home")
+
+
+def comment(request):
+  if request.method == "POST":
+    name = request.user
+    blog_id = request.POST.get("blogid")
+    comment = request.POST.get("comment")
+
+    blog = Blog.objects.get(id=blog_id)
+    comment =Comment(name=name,blogparent=blog,comment=comment)
+
+    comment.save()
+    messages.success(request,"Your comment successfully added!")
+    
+  return redirect(reverse("content", args=[blog_id])) 
+
+
+
+def replies(request):
+  if request.method=="POST":
+    name = request.user
+    commentparent = request.POST.get("commentparent")
+    replay = request.POST.get("replay")
+    blog_id = request.POST.get("blogid")
+
+    comment = Comment.objects.get(id=commentparent)
+
+    replied = Replay(name=name,commentparent=comment,replay=replay)
+    replied.save()
+    messages.success(request,"Your replay successfully added!")
+  return redirect(reverse("content", args=[blog_id]))
